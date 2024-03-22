@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FreshPress',
+      title: 'FreshPress Customer Facing',
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       theme: ThemeData(
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const Scaffold(
         body: Center(
-          child: Text("First step in the journey of great products"),
+          child: Text("First step in the journey of a useful products"),
         ),
       ),
     );
