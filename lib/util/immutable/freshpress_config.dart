@@ -1,0 +1,7 @@
+
+class FreshPressConfigurations {
+  FreshPressConfigurations._();
+
+
+
+}

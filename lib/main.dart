@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:freshpress_customer/screen/identity/get_started_screen.dart';
+import 'package:freshpress_customer/screen/walkthrough/splash_screen.dart';
+import 'package:freshpress_customer/util/caching/local_caching.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  LocalCache().initialize();
   runApp(const MyApp());
 }
 
@@ -13,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FreshPress Customer Facing',
+      title: 'FreshPress App',
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       theme: ThemeData(
@@ -21,11 +25,10 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.robotoTextTheme(Theme.of(context).textTheme),
         useMaterial3: true,
       ),
-      home: const Scaffold(
-        body: Center(
-          child: Text("First step in the journey of a useful products"),
-        ),
-      ),
+      home: const SplashScreen(),
+      routes: {
+        GetStartedScreen.routeName: (context) => const GetStartedScreen()
+      },
     );
   }
 }

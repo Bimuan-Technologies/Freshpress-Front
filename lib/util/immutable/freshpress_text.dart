@@ -1,0 +1,7 @@
+
+
+class FreshPressTexts {
+  FreshPressTexts._();
+
+
+}
