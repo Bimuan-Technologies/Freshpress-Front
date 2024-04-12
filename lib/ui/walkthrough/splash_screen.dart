@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../../util/immutable/freshpress_color.dart';
-import '../../util/immutable/freshpress_image_path.dart';
-import '../identity/get_started_screen.dart';
+import '../../common/constants/freshpress_color.dart';
+import '../../common/constants/freshpress_image_path.dart';
+import 'get_started_screen.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -121,7 +120,13 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text("Bimuan Tech Inc.", style: TextStyle(fontSize: 12,),)
+                      SizedBox(
+                        width: 25, // Adjust width and height as needed
+                        height: 25,
+                        child: Image.asset(FreshPressImages.bimaunLogoPath),
+                      ),
+                      const SizedBox(width: 7),
+                      const Text("Bimuan Tech", style: TextStyle(fontSize: 12, color: FreshPressColors.darkBlue),)
                     ],
                   )
               )
