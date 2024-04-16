@@ -4,7 +4,7 @@ class FreshPressAPIEndpoints {
 
   FreshPressAPIEndpoints._();
 
-  // Base URLs
+  // Base and API URLs
   static const String domainUrl = "https://api-freshpress.onrender.com";
   static const String baseUrl = "$domainUrl/api/v1";
 
