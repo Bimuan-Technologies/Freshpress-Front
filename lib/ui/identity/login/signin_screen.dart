@@ -55,7 +55,7 @@ class _SignInScreenState extends State<SignInScreen> {
           }
         },
         child: Scaffold(
-
+          backgroundColor: FreshPressColors.lightGrey,
           body: SafeArea(
             child: SingleChildScrollView(
               child: BlocBuilder<SignInCubit, LoginState>(
@@ -238,7 +238,8 @@ class _SignInScreenState extends State<SignInScreen> {
               width: w * .5,
               height: 50,
               child: ElevatedButton(
-                onPressed: isFormValid ? () async {
+                onPressed: isFormValid ? ()
+                async {
 
                   if(!isEmailAddressValid(_emailController.text)){
                     showToastMessage(message: "Invalid email address format");

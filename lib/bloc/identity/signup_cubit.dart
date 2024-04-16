@@ -30,6 +30,8 @@ class SignUpCubit extends Cubit<RegisterState>{
 
     debugPrint("$email $password $cPassword $getProductUpdate");
 
+    _localCache.getValue<String>("cached_email_register") ?? _localCache.saveValue<String>("cached_email_register", email!);
+
     SignUpRequestModel payload = SignUpRequestModel(
         email: email!,
         password: password!,
@@ -53,6 +55,21 @@ class SignUpCubit extends Cubit<RegisterState>{
     }
   }
 
+  Future<void> resendOtpCodeEmailVerification(String? email) async {
+
+    if(!areAllNonNull([email])){
+      showToastMessage(message: 'Invalid null value');
+      return;
+    }
+    debugPrint("$email");
+    try{
+      final result = await _identityRepository.resendOtpVerifyEmail(email!);
+      showToastMessage(message:  result.message);
+      return;
+    } catch (e){
+      showToastMessage(message: e.toString());
+    }
+  }
   Future<bool> verifyOtpCodeEmailVerification(String? otpCode) async {
     emit(RegisterEmailPasswordProgress());
 

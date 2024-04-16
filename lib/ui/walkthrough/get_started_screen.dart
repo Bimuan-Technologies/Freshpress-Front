@@ -77,7 +77,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text("FROM DIRT TO SPARKLE,\nWE REDEFINE CLEANLINESS", textAlign: TextAlign.center, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
+                  const Text("FROM DIRT TO SPARKLE, WE REDEFINE CLEANLINESS", textAlign: TextAlign.center, style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),),
                   const SizedBox(height: 100),
                   SizedBox(
                     width: size.width * .5,

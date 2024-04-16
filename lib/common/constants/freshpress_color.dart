@@ -8,6 +8,7 @@ class FreshPressColors {
   static const Color greyText = Color(0xFF474B51);
   static const Color greyerText = Color(0xFF8C8F93);
   static const Color lightGrey = Color(0xFFF1F1F1);
+  static const Color whiteColor = Color(0xFFFFFFFF);
   static const Color lightBlue = Color(0xFFADD8E6);
   static const Color transparentBlue = Color(0x22ADD8E6);
   static const Color darkBlue = Color(0xFF303F9F);

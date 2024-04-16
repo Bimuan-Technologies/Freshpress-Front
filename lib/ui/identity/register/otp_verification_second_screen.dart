@@ -6,8 +6,10 @@ import 'package:freshpress_customer/bloc/identity/signup_state.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../../../bloc/identity/signup_cubit.dart';
+import '../../../common/caching/local_caching.dart';
 import '../../../common/constants/freshpress_color.dart';
 import '../../../common/constants/freshpress_image_path.dart';
 import '../../../common/util/notification_box/toast_alert.dart';
@@ -24,17 +26,22 @@ class OtpVerificationSignUpScreen extends StatefulWidget {
 }
 
 class _OtpVerificationSignUpScreenState extends State<OtpVerificationSignUpScreen> {
+
+  final LocalCache _localCache = LocalCache();
+
   late SignUpCubit _signUpCubit;
 
   OtpFieldController otpController = OtpFieldController();
   final FocusNode _otpFocusNode = FocusNode();
   String code6 = "";
+  String? cachedEmail;
   bool isCodeComplete = false; // Track code completion status
 
   @override
   void initState(){
     super.initState();
     _signUpCubit = BlocProvider.of<SignUpCubit>(context);
+    cachedEmail = _localCache.getValue<String>("cached_email_register");
   }
 
   Future<String> getClipboardContent() async {
@@ -236,6 +243,11 @@ class _OtpVerificationSignUpScreenState extends State<OtpVerificationSignUpScree
 
                   InkWell(
                     onTap: (){
+                      if(cachedEmail.isNotEmptyAndNotNull){
+                        signUpCubit.resendOtpCodeEmailVerification(cachedEmail);
+                      } else {
+                        showToastMessage(message: "Failed to request for resend of code");
+                      }
                       // showToastMessage(message: 'Yet to be implemented');
                       // Navigator.of(context).pushNamed(ForgotPasswordFirstStepScreen.routeName);
                     },

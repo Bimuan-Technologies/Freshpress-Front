@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:freshpress_customer/data/models/auth/generic_response_model.dart';
 import 'package:http/http.dart' as http;
 import '../../common/constants/freshpress_api_endpoint.dart';
 import '../../common/exception/account_registered_already_exception.dart';
@@ -41,6 +42,21 @@ class IdentityRepository {
       throw InvalidOtpCodeException(message: 'Invalid OTP!');
     } else {
       throw Exception("Failed to verify otp code: ${response.body}");
+    }
+  }
+
+  Future<GenericResponseModel> resendOtpVerifyEmail(String resendEmail) async {
+
+    final response = await http.get(
+      Uri.parse('${FreshPressAPIEndpoints.resendOtpVerifyEmailUrl}?email=$resendEmail'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    if(response.statusCode == 200){
+      return GenericResponseModel.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception("Failed to resend otp code: ${response.body}");
     }
   }
 

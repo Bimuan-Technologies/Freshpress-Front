@@ -35,11 +35,16 @@ class MyApp extends StatelessWidget {
         BlocProvider<SignInCubit>(create: (context) => SignInCubit(IdentityRepository()))
       ],
       child: MaterialApp(
-        title: 'FreshPress Cleaning Services App',
+        title: 'FreshPress on Demand Cleaning Services App',
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.system,
-        darkTheme: FreshPressCustomThemes.darkTheme,
-        theme: FreshPressCustomThemes.lightTheme,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          textTheme: GoogleFonts.robotoTextTheme(Theme.of(context).textTheme),
+          useMaterial3: true,
+        ),
+        // darkTheme: FreshPressCustomThemes.darkTheme,
+        // theme: FreshPressCustomThemes.lightTheme,
         home: const SplashScreen(),
         routes: {
           GetStartedScreen.routeName: (context) => const GetStartedScreen(),
