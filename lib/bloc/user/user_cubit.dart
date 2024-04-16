@@ -24,7 +24,7 @@ class UserCubit extends Cubit<UserDetailsState>{
         debugPrint(responseData.userData.email);
         emit(UserDetailsSuccess(responseData));
       } else {
-        emit(UserDetailsFailure("Invalid response data"));
+        emit(UserDetailsFailure("Invalid response data while fetching user data"));
       }
 
     } catch (e){
