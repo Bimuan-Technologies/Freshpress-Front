@@ -22,7 +22,7 @@ class IdentityRepository {
     if(response.statusCode == 201){
       return SignUpResponseModel.fromJson(jsonDecode((response.body)));
     } else if(response.statusCode == 400){
-      throw AccountRegisteredAlreadyException(message: "Account already registered. Please login");
+      throw AccountRegisteredAlreadyException(message: "Please enter a strong password");
     } else {
       throw Exception("Failed to register with email and password: ${response.body}");
     }
