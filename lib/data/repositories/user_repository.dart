@@ -2,7 +2,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import '../../common/caching/local_caching.dart';
+
+import '../../common/cache/local_caching.dart';
 import '../../common/constants/freshpress_api_endpoint.dart';
 import '../models/user/user_detail_response_model.dart';
 

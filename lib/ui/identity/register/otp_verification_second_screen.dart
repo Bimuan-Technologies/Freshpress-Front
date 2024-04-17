@@ -9,7 +9,7 @@ import 'package:otp_text_field/style.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../bloc/identity/signup_cubit.dart';
-import '../../../common/caching/local_caching.dart';
+import '../../../common/cache/local_caching.dart';
 import '../../../common/constants/freshpress_color.dart';
 import '../../../common/constants/freshpress_image_path.dart';
 import '../../../common/util/notification_box/toast_alert.dart';

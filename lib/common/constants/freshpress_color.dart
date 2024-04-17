@@ -10,6 +10,7 @@ class FreshPressColors {
   static const Color lightGrey = Color(0xFFF1F1F1);
   static const Color whiteColor = Color(0xFFFFFFFF);
   static const Color lightBlue = Color(0xFFADD8E6);
+  static const Color midBlue = Color(0xFFADD8FF);
   static const Color transparentBlue = Color(0x22ADD8E6);
   static const Color darkBlue = Color(0xFF303F9F);
   static const Color greenishBlue = Color(0xFF2C7873);
@@ -19,5 +20,4 @@ class FreshPressColors {
   static const Color sunshineYellow = Color(0xFFFFD700);
   static const Color goldenYellow = Color(0xFFFFD700);
   static const Color lemonYellow = Color(0xFFFCE883);
-
 }
