@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freshpress_customer/bloc/identity/signin_cubit.dart';
 import 'package:freshpress_customer/data/repositories/identity_repository.dart';
+import 'package:freshpress_customer/data/repositories/user_repository.dart';
 import 'package:freshpress_customer/ui/dashboard/dashboard_navigation.dart';
 import 'package:freshpress_customer/ui/identity/forgotpassword/first_step.dart';
 import 'package:freshpress_customer/ui/legal/privacy_policy.dart';
@@ -14,7 +15,8 @@ import 'package:freshpress_customer/ui/walkthrough/splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'bloc/identity/signup_cubit.dart';
-import 'common/caching/local_caching.dart';
+import 'bloc/user/user_cubit.dart';
+import 'common/cache/local_caching.dart';
 import 'common/util/theme/custom_theme.dart';
 
 void main() async {
@@ -32,7 +34,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<SignUpCubit>(create: (context) => SignUpCubit(IdentityRepository())),
-        BlocProvider<SignInCubit>(create: (context) => SignInCubit(IdentityRepository()))
+        BlocProvider<SignInCubit>(create: (context) => SignInCubit(IdentityRepository())),
+        BlocProvider<UserCubit>(create: (context) => UserCubit(UserRepository()))
       ],
       child: MaterialApp(
         title: 'FreshPress on Demand Cleaning Services App',

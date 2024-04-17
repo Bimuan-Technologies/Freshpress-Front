@@ -5,7 +5,7 @@ import 'package:freshpress_customer/bloc/identity/signup_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freshpress_customer/data/models/auth/signup_model.dart';
 import 'package:freshpress_customer/data/repositories/identity_repository.dart';
-import '../../common/caching/local_caching.dart';
+import '../../common/cache/local_caching.dart';
 import '../../common/exception/account_registered_already_exception.dart';
 import '../../common/exception/invalid_otp_exception.dart';
 import '../../common/util/checks/helper.dart';
