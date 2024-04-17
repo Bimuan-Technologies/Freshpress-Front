@@ -3,7 +3,6 @@ import 'package:freshpress_customer/ui/dashboard/home/home_ui.dart';
 import 'package:freshpress_customer/ui/dashboard/me/me_ui.dart';
 import 'package:freshpress_customer/ui/dashboard/service/service_ui.dart';
 import 'package:freshpress_customer/ui/dashboard/setting/setting_ui.dart';
-
 import '../../common/constants/freshpress_color.dart';
 import '../../common/constants/freshpress_image_path.dart';
 import 'booking/booking_ui.dart';
