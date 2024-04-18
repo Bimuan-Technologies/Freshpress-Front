@@ -126,7 +126,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                         child: Image.asset(FreshPressImages.bimaunLogoPath),
                       ),
                       const SizedBox(width: 7),
-                      const Text("Bimuan Tech", style: TextStyle(fontSize: 12, color: FreshPressColors.darkBlue, fontWeight: FontWeight.w600),)
+                      const Text("Bimuan Tech", style: TextStyle(fontSize: 12, color: FreshPressColors.darkBlue, fontWeight: FontWeight.w500),)
                     ],
                   )
               )

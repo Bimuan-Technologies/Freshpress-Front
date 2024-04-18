@@ -11,6 +11,7 @@ import '../../common/exception/invalid_otp_exception.dart';
 import '../../common/util/checks/helper.dart';
 import '../../common/util/notification_box/toast_alert.dart';
 import '../../ui/identity/register/otp_verification_second_screen.dart';
+import '../../ui/walkthrough/get_started_screen.dart';
 
 class SignUpCubit extends Cubit<RegisterState>{
 
@@ -44,7 +45,7 @@ class SignUpCubit extends Cubit<RegisterState>{
       emit(RegisterEmailPasswordSuccess(result));
       showToastMessage(message:  result.message);
       if (!ctx.mounted) return;
-      Navigator.of(ctx).pushNamed(OtpVerificationSignUpScreen.routeName);
+      Navigator.of(ctx).pushNamedAndRemoveUntil(OtpVerificationSignUpScreen.routeName, (Route previousRoute) => previousRoute == GetStartedScreen.routeName);
 
     } on AccountRegisteredAlreadyException catch(e){
       emit(RegisterEmailPasswordFailure(e.message!));

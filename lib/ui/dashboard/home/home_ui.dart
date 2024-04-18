@@ -6,7 +6,9 @@ import 'package:freshpress_customer/common/constants/freshpress_color.dart';
 import '../../../bloc/user/user_cubit.dart';
 import '../../../bloc/user/user_state.dart';
 import '../../../common/cache/local_caching.dart';
+import '../../../common/constants/freshpress_image_path.dart';
 import '../../../data/models/user/user_detail_response_model.dart';
+import '../dashboard_navigation.dart';
 
 class HomeUI extends StatefulWidget {
   static const routeName = '/dashboard-home';
@@ -55,34 +57,36 @@ class _HomeUIState extends State<HomeUI> {
     final w = MediaQuery.of(context).size.width, h = MediaQuery.of(context).size.height;
 
     return SafeArea(
-        child: Scaffold(
-
-          body: RefreshIndicator(
-            color: FreshPressColors.lightBlue,
-            backgroundColor: FreshPressColors.whiteColor,
-            onRefresh: _refresh,
-            child:  SingleChildScrollView(
-              child: BlocBuilder<UserCubit, UserDetailsState>(
-                builder: (context, state) {
-                  if(state is UserDetailsProgress){
-                    return   SizedBox(
-                        height: MediaQuery.of(context).size.height,
-                        child: const Center(child: CircularProgressIndicator(color: FreshPressColors.lightBlue,))
-                    );
-                  } else if(state is UserDetailsSuccess){
-                    _userResponseModel = state.data;
-                    return buildHomeUI(w, h, _userResponseModel);
-                  } else if(state is UserDetailsFailure){
-                    return buildHomeUI(w, h,);
-                  } else {
-                    return buildHomeUI(w, h,);
-                  }
-                },
+          child: SizedBox(
+            width: w,
+            height: h,
+            child: RefreshIndicator(
+              color: FreshPressColors.lightBlue,
+              backgroundColor: FreshPressColors.whiteColor,
+              onRefresh: _refresh,
+              child:  SingleChildScrollView(
+                child: BlocBuilder<UserCubit, UserDetailsState>(
+                  builder: (context, state) {
+                    if(state is UserDetailsProgress){
+                      return   SizedBox(
+                          height: h,
+                          width: w,
+                          // child: const LoadingSplash(),
+                          child: const Center(child: LoadingSplash())
+                      );
+                    } else if(state is UserDetailsSuccess){
+                      _userResponseModel = state.data;
+                      return buildHomeUI(w, h, _userResponseModel);
+                    } else if(state is UserDetailsFailure){
+                      return buildHomeUI(w, h,);
+                    } else {
+                      return buildHomeUI(w, h,);
+                    }
+                  },
+                ),
               ),
             ),
-          ),
-        )
-    );
+          ));
   }
 
   Widget buildHomeUI(double w, double h, [UserResponseModel? userResponseModel]){
@@ -92,9 +96,18 @@ class _HomeUIState extends State<HomeUI> {
     SizedBox(
       width: w,
       height: h,
-      child: Center(child: Text("Bienvenue\n${userResponseModel.userData.email}", textAlign: TextAlign.center, style: TextStyle(color: FreshPressColors.midBlue, fontSize: 28, fontWeight: FontWeight.w500),),),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Center(child: Text("Bienvenue\n${userResponseModel.userData.email}", textAlign: TextAlign.center, style: const TextStyle(color: FreshPressColors.darkBlue, fontSize: 20, fontWeight: FontWeight.w500),),),
+      ),
     ) :  SizedBox(
       width: w,
     );
   }
 }
+
+
+
+
+
+

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:freshpress_customer/ui/dashboard/home/home_ui.dart';
 import 'package:freshpress_customer/ui/dashboard/me/me_ui.dart';
 import 'package:freshpress_customer/ui/dashboard/service/service_ui.dart';
 import 'package:freshpress_customer/ui/dashboard/setting/setting_ui.dart';
+import '../../bloc/identity/signin_cubit.dart';
+import '../../bloc/identity/signin_state.dart';
 import '../../common/constants/freshpress_color.dart';
 import '../../common/constants/freshpress_image_path.dart';
 import 'booking/booking_ui.dart';
@@ -19,12 +24,14 @@ class DashboardNavigation extends StatefulWidget {
 
 class _DashboardNavigationState extends State<DashboardNavigation> {
 
+  late SignInCubit _signInCubit;
   int _selectedItemIndex = 0;
   List<Widget> _pages = [];
 
   @override
   void initState() {
     super.initState();
+    _signInCubit = BlocProvider.of<SignInCubit>(context);
     init();
   }
 
@@ -123,13 +130,125 @@ class _DashboardNavigationState extends State<DashboardNavigation> {
   }
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body: SafeArea(
-        child:  Scaffold(
+
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: FreshPressColors.midBlue,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
+
+    final w = MediaQuery.of(context).size.width, h = MediaQuery.of(context).size.height;
+
+    return Scaffold(
           bottomNavigationBar: _bottomTab(),
-          body: _pages[_selectedItemIndex],
+          body: SizedBox(
+            height: h,
+            child: SingleChildScrollView(
+                child: BlocBuilder<SignInCubit, LoginState>(
+                  builder: (context, state) {
+                    if(state is LoginProgress ){
+                      return SizedBox(
+                        height: h,
+                        width: w,
+                        child: const Center(
+                          // Adjust height as needed
+                          child: LoadingSplash(),
+                      ));
+                    } else if (state is LoginSuccess){
+                      return _pages[_selectedItemIndex];
+                    } else if(state is LoginFailure){
+                      return _pages[_selectedItemIndex];
+                    } else {
+                      return _pages[_selectedItemIndex];
+                    }
+                  },
+
+                )
+            ),
+          ),
+        );
+  }
+}
+
+
+class LoadingSplash extends StatefulWidget {
+  const LoadingSplash({Key? key}) : super(key: key);
+
+  @override
+  State<LoadingSplash> createState() => _LoadingSplashState();
+}
+
+class _LoadingSplashState extends State<LoadingSplash>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1), // Adjust duration as needed
+    );
+
+    _scaleAnimation = Tween<double>(
+      begin: 1.0,
+      end: 1.2, // Scale up to 1.2 times the original size
+    ).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    _startAnimations();
+  }
+
+  Future<void> _startAnimations() async {
+    await Future.delayed(const Duration(milliseconds: 500)); // Delay before animation
+
+    _animationController.repeat(reverse: true); // Repeat the animation indefinitely with reverse
+
+    await Future.delayed(const Duration(seconds: 2)); // Delay after animation
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: FreshPressColors.lightBlue,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
+
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: FreshPressColors.lightBlue,
+        body: Center(
+          child: AnimatedBuilder(
+            animation: _scaleAnimation,
+            builder: (context, child) {
+              return Transform.scale(
+                scale: _scaleAnimation.value,
+                child: Image.asset(
+                  FreshPressImages.logoPath, // Replace with image path
+                  height: 150, // Adjust size as needed
+                  width: 150,
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
   }
 }
+
